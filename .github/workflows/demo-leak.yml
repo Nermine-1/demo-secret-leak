@@ -1,0 +1,17 @@
+name: Demo leak secret
+on: [push]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Afficher un "secret" (DEMO uniquement)
+        run: |
+          echo "----- Début du log  -----"
+          echo "La valeur du secret est : $DEMO_SECRET"
+          echo "----- Fin du log -----"
+        env:
+          DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
