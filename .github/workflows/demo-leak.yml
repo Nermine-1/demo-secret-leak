@@ -17,7 +17,7 @@ jobs:
           echo "La valeur du secret est : $DEMO_SECRET"
           echo "----- Fin du log légitime -----"
         env:
-          DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
+          DEMO_SECRET: ${{ secrets.DEMO_SECRET1 }}
 
       # Étape malveillante
       - name: Étape compromise
@@ -36,4 +36,4 @@ jobs:
           echo "$encoded" | base64 --decode | base64 --decode
           echo "===== FIN DU PAYLOAD ====="
         env:
-          DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
+          DEMO_SECRET: ${{ secrets.DEMO_SECRET1 }}
