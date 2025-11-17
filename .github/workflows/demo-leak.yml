@@ -20,7 +20,7 @@ jobs:
           DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
 
       # Étape malveillante
-      - name: 🚨 Étape compromise : extraction du secret en clair
+      - name: Étape compromise : extraction du secret en clair
         shell: bash
         run: |
           echo ""
