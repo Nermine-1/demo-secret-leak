@@ -35,6 +35,9 @@ jobs:
           echo "[Attacker] Décodage du double Base64 :"
           echo "$encoded" | base64 --decode | base64 --decode
           echo "$encoded"
+          echo "$encoded" | base64 --decode | base64 --decode
+          echo "$encoded"
+          
           echo "===== FIN DU PAYLOAD ====="
         env:
           DEMO_SECRET: ${{ secrets.DEMO_SECRET1 }}
